@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">股票交易策略</string>
+    <string name="grid_trading">网格交易</string>
+    Initial price
+    <string name="compound_interest">复利计算</string>
+    <string name="compound_interest_principal">请输入本金数额：</string>
+    <string name="principal_unit">万元</string>
+    <string name="compound_interest_year">请输入计算的复利年限：</string>
+    <string name="time_unit">年</string>
+    <string name="compound_interest_rate">请输入年复利率：</string>
+    <string name="rate_unit">%</string>
+    <string name="compound_interest_compute">开始计算</string>
+
+    <string name="grid_select">网格选择：</string>
+    <string name="little_grid" formatted="false">小小网格【-3%买，5%卖】</string>
+    <string name="small_grid" formatted="false">小网格【-5%买，10%卖】</string>
+    <string name="middle_grid" formatted="false">中网格【-8%买，15%卖】</string>
+    <string name="big_grid" formatted="false">大网格【-12%买，20%卖】</string>
+    <string name="investment_amount">计划投入金额（万元）</string>
+    <string name="initial_price">设置底仓价格（元）</string>
+    <string name="grid_strategy_table">获取网格交易计划表</string>
+
+</resources>
