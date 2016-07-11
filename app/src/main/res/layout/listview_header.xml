@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/game_experience_content_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#303030"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/buy_A"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:singleLine="true"
+        android:textColor="#aaffffff"
+        android:text="买入A档"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/buy_B"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:singleLine="true"
+        android:textColor="#aaffffff"
+        android:text="买入B档"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/bottom"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:singleLine="true"
+        android:textColor="#aaffffff"
+        android:text="底仓"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/sell_A"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:singleLine="true"
+        android:textColor="#aaffffff"
+        android:text="卖出A档"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/sell_B"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:singleLine="true"
+        android:textColor="#aaffffff"
+        android:text="卖出B档"
+        android:textSize="14sp" />
+
+</LinearLayout>

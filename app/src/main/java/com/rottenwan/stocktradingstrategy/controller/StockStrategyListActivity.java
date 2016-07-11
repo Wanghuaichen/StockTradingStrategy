@@ -1,6 +1,7 @@
 package com.rottenwan.stocktradingstrategy.controller;
 
 import android.support.v4.app.Fragment;
+
 import com.rottenwan.stocktradingstrategy.ManagerFragmentActivity;
 
 /**

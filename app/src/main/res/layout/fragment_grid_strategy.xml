@@ -6,11 +6,16 @@
               android:paddingLeft="@dimen/activity_horizontal_margin"
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
+              android:background="@color/activityBackground"
               android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/grid_select"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/grid_select"
+        android:textColor="#333333"
+        android:textSize="16sp"/>
 
     <RadioGroup android:id="@+id/radio_group_grid"
         android:layout_width="wrap_content"
@@ -34,12 +39,17 @@
                   android:text="@string/big_grid"/>
     </RadioGroup>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#d0d0d0" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1">
 
-        <TextView
+        <TextView android:id="@+id/investment_amount_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/investment_amount"/>
@@ -68,13 +78,37 @@
                   android:inputType="number"/>
     </LinearLayout>
 
-    <Button android:id="@+id/gain_grid_table"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#d0d0d0" />
+
+    <Button
+        android:id="@+id/export_grid_table"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/export_btn_selector"
+        android:padding="0dp"
+        android:text="@string/export_grid_table"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/import_grid_table"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/import_btn_selector"
+        android:padding="0dp"
+        android:text="@string/import_grid_table"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <ListView
+        android:id="@+id/grid_table_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/grid_strategy_table"/>
-
-    <TextView android:id="@+id/grid_table"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_margin="3dp" />
 
 </LinearLayout>

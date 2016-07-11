@@ -20,7 +20,7 @@ import java.text.DecimalFormat;
 
 /**
  * Created by hewei on 2016-04-04  .*/
-public class CompoundInterestFragment extends Fragment{
+public class CompoundInterestFragment extends Fragment {
     private TextView mCompoundInterestResult;
 
     private CompoundInterestData mCompoundInterestData;
