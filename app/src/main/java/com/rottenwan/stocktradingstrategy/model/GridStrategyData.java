@@ -1,7 +1,11 @@
 package com.rottenwan.stocktradingstrategy.model;
 
+import java.text.DecimalFormat;
+
 /**
- * Created by hewei on 2016-04-21  .*/
+ * Created by hewei on 2016-04-21
+ * 操作网格数据的model层. MVC设计模式
+ * .*/
 public class GridStrategyData {
     private static GridStrategyData sGridStrategyData;
     private double mBuyGrid = 0;
@@ -14,20 +18,22 @@ public class GridStrategyData {
     private double mSellA = 0;
     private double mSellB = 0;
 
-    public double getBuyA() {
-        return mBuyA;
+    DecimalFormat df = new DecimalFormat("#.00");
+
+    public Double getBuyA() {
+        return Double.parseDouble(df.format(mBuyA));
     }
 
     public double getBuyB() {
-        return mBuyB;
+        return Double.parseDouble(df.format(mBuyB));
     }
 
     public double getSellA() {
-        return mSellA;
+        return Double.parseDouble(df.format(mSellA));
     }
 
     public double getSellB() {
-        return mSellB;
+        return Double.parseDouble(df.format(mSellB));
     }
 
     public void setBuyA(double buyA) {

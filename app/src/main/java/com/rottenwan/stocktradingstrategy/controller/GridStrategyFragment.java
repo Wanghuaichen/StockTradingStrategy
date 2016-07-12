@@ -2,6 +2,7 @@ package com.rottenwan.stocktradingstrategy.controller;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -36,18 +38,17 @@ public class GridStrategyFragment extends Fragment {
     private Button mImportGridTable;
     private ListView mGridTableList;
     private GridStrategyData mGridStrategyData;
+    SQLiteDatabase db;
 
-    private File mFile;
     private String[] mTitle = {"买入B档", "买入A档", "底仓", "卖出A档", "卖出B档"};
     private Double[] mSaveData;
-    private GridDBHelper mDbHelper;
-    private ArrayList<ArrayList<Double>> mGridList;
+    private ArrayList<ArrayList<String>> mGridList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDbHelper = new GridDBHelper(getActivity());
-        mDbHelper.open();
+        GridDBHelper dbHelper = new GridDBHelper(getActivity(), "GridStrategy.db", null, 1);
+        db = dbHelper.getWritableDatabase();
         mGridList = new ArrayList<>();
         mGridStrategyData = GridStrategyData.getInstance();
     }
@@ -107,6 +108,8 @@ public class GridStrategyFragment extends Fragment {
             public void afterTextChanged(Editable s) {}
         });
 
+        /**
+         * 使用SQlite数据库存储相关数据，随后写入到excel表*/
         mExportGridTable = (Button) v.findViewById(R.id.export_grid_table);
         mExportGridTable.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,31 +122,28 @@ public class GridStrategyFragment extends Fragment {
 
                 if (canSave(mSaveData)) {
                     ContentValues values = new ContentValues();
-                    values.put("buy_B", mGridStrategyData.computeBuyB());
-                    values.put("buy_A", mGridStrategyData.computeBuyA());
-                    values.put("init", mGridStrategyData.getInitialPrice());
-                    values.put("sell_A", mGridStrategyData.computeSellA());
-                    values.put("sell_B", mGridStrategyData.computeSellB());
-
-                    long insert = mDbHelper.insert(GridDBHelper.DB_NAME, values);
+                    values.put("buyB", mGridStrategyData.computeBuyB());
+                    values.put("buyA", mGridStrategyData.computeBuyA());
+                    values.put("initPrice", mGridStrategyData.getInitialPrice());
+                    values.put("sellA", mGridStrategyData.computeSellA());
+                    values.put("sellB", mGridStrategyData.computeSellB());
+                    long insert = db.insert("Grid", null, values);
                     if (insert > 0) {
-                        initData();
+                        initData();   //写数据到excel
                     }
                 } else {
                     Toast.makeText(getActivity(), "内容填写不完整，请确认", Toast.LENGTH_SHORT).show();
                 }
-                /*
-                double buyGrid = mGridStrategyData.getBuyGrid();
-                double sellGrid = mGridStrategyData.getSellGrid();
-                double investmentAmount = mGridStrategyData.getInvestmentAmount() * 10000;
-                double initialPrice = mGridStrategyData.getInitialPrice();
-
-                LogUtil.d("buyGrid = " + buyGrid + ", sellGrid = " + sellGrid
-                    + ", investmentAmount = " + investmentAmount + ", initialPrice = " + initialPrice);
-                    */
             }
         });
 
+        mGridTableList = (ListView) v.findViewById(R.id.grid_table_list);
+        View contentHeader = LayoutInflater.from(getActivity()).inflate(
+                R.layout.listview_header, new LinearLayout(getActivity()));
+        mGridTableList.addHeaderView(contentHeader);
+
+        /**
+         * 从excel中获取数据，用定制ListView显示出来*/
         mImportGridTable = (Button) v.findViewById(R.id.import_grid_table);
         mImportGridTable.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,35 +154,29 @@ public class GridStrategyFragment extends Fragment {
             }
         });
 
-        mGridTableList = (ListView) v.findViewById(R.id.grid_table_list);
-
-        View contentHeader = LayoutInflater.from(getActivity()).inflate(
-                R.layout.listview_header, null);
-        mGridTableList.addHeaderView(contentHeader);
-
         return v;
     }
 
     public void initData() {
-        mFile = new File(getSDPath() + "/GridStrategy");
-        boolean res = makeDir(mFile);
+        File file = new File(getSDPath() + "/GridStrategy");
+        boolean res = makeDir(file);
         if (!res) {
             LogUtil.d("make dir fail or directory already existed.");
         }
-        ExcelUtils.initExcel(mFile.toString() + "grid.xls", mTitle);
+        ExcelUtils.initExcel(file.toString() + "/grid.xls", mTitle);
         ExcelUtils.writeObjListToExcel(getGridData(),
                 getSDPath() + "/GridStrategy/grid.xls", getActivity());
     }
 
-    private ArrayList<ArrayList<Double>> getGridData() {
-        Cursor mCrusor = mDbHelper.exeSql("select * from grid_strategy");
+    private ArrayList<ArrayList<String>> getGridData() {
+        Cursor mCrusor = db.query("Grid", null, null, null, null, null, null);
         while (mCrusor.moveToNext()) {
-            ArrayList<Double> beanList = new ArrayList<>();
-            beanList.add(mCrusor.getDouble(1));
-            beanList.add(mCrusor.getDouble(2));
-            beanList.add(mCrusor.getDouble(3));
-            beanList.add(mCrusor.getDouble(4));
-            beanList.add(mCrusor.getDouble(5));
+            ArrayList<String> beanList = new ArrayList<>();
+            beanList.add(mCrusor.getString(1));
+            beanList.add(mCrusor.getString(2));
+            beanList.add(mCrusor.getString(3));
+            beanList.add(mCrusor.getString(4));
+            beanList.add(mCrusor.getString(5));
 
             mGridList.add(beanList);
         }
@@ -213,6 +207,8 @@ public class GridStrategyFragment extends Fragment {
 
     }
 
+    /**
+     * 当必填项：网格大小，初始资金，底仓价格设置好后方可保存到数据库 */
     private boolean canSave(Double[] data) {
         boolean isOk = true;
         for (int i = 0; i < data.length; i++) {

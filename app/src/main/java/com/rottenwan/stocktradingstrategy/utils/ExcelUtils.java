@@ -1,7 +1,6 @@
 package com.rottenwan.stocktradingstrategy.utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.rottenwan.stocktradingstrategy.model.GridStrategyData;
@@ -25,6 +24,11 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+
+/**
+ * Created by hewei on 2016-06-20
+ * Android数据保存到Excel核心类
+ * .*/
 
 public class ExcelUtils {
 	public static WritableFont arial14font = null;
@@ -72,10 +76,13 @@ public class ExcelUtils {
 			File file = new File(fileName);
 			if (!file.exists()) {
 				boolean res = file.createNewFile();
+                if (!res) {
+                    LogUtil.e("create grid.xls fail");
+                }
 			}
 			workbook = Workbook.createWorkbook(file);
 			WritableSheet sheet = workbook.createSheet("网格交易计划表", 0);
-			sheet.addCell((WritableCell) new Label(0, 0, fileName,
+			sheet.addCell(new Label(0, 0, fileName,
 					arial14format));
 			for (int col = 0; col < colName.length; col++) {
 				sheet.addCell(new Label(col, 0, colName[col], arial10format));
@@ -145,25 +152,36 @@ public class ExcelUtils {
 	public static List<GridStrategyData> read2DB(File f, Context con) {
 		ArrayList<GridStrategyData> gridList = new ArrayList<GridStrategyData>();
 		try {
-			Workbook course = null;
+			Workbook course;
 			course = Workbook.getWorkbook(f);
 			Sheet sheet = course.getSheet(0);
-			
-			Cell cell = null;
-			for (int i = 0; i < sheet.getRows(); i++) {
+            LogUtil.d("course = " + course + ", sheet = " + sheet + ", sheet.getRows() = " + sheet.getRows());
+
+			Cell cell;
+            Double temp;
+			for (int i = 1; i < sheet.getRows(); i++) {
 				GridStrategyData gsd = new GridStrategyData();
 				cell = sheet.getCell(0, i);
-				gsd.setBuyB(cell.getColumn());
+                temp = Double.parseDouble(cell.getContents());
+				gsd.setBuyB(temp);
+
 				cell = sheet.getCell(1, i);
-				gsd.setBuyA(cell.getColumn());
+                temp = Double.parseDouble(cell.getContents());
+                gsd.setBuyA(temp);
+
 				cell = sheet.getCell(2, i);
-				gsd.setInitialPrice(cell.getColumn());
+                temp = Double.parseDouble(cell.getContents());
+                gsd.setInitialPrice(temp);
+
 				cell = sheet.getCell(3, i);
-				gsd.setSellA(cell.getColumn());
+                temp = Double.parseDouble(cell.getContents());
+                gsd.setSellA(temp);
+
 				cell = sheet.getCell(4, i);
-				gsd.setSellB(cell.getColumn());
-				LogUtil.d("Row" + i + "---------" + gsd.getBuyB() + gsd.getBuyA()
-						+ gsd.getInitialPrice() + gsd.getSellA() + gsd.getBuyB());
+                temp = Double.parseDouble(cell.getContents());
+                gsd.setSellB(temp);
+				LogUtil.d("第" + i + "行---------" + gsd.getBuyB() + ", " + gsd.getBuyA() + ", "
+						+ gsd.getInitialPrice() + ", " + gsd.getSellA() + ", " + gsd.getBuyB());
 				gridList.add(gsd);
 				
 			}

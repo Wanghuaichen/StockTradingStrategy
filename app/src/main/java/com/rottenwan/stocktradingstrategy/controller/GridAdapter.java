@@ -5,13 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rottenwan.stocktradingstrategy.R;
 import com.rottenwan.stocktradingstrategy.model.GridStrategyData;
+import com.rottenwan.stocktradingstrategy.utils.StockStrategyApplication;
 
 import java.util.List;
+
+/**
+ * Created by hewei on 2016-06-21
+ * 自定义Adapter.*/
 
 public class GridAdapter extends BaseAdapter {
 
@@ -42,17 +47,13 @@ public class GridAdapter extends BaseAdapter {
 		return position;
 	}
 
-	public void changeList(List<GridStrategyData> list) {
-		this.list = list;
-	}
-
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		final ViewHolder holder;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.grid_items, null);
+			convertView = inflater.inflate(R.layout.grid_items, new LinearLayout(StockStrategyApplication.getContext()));
 			holder.buyB = (TextView) convertView.findViewById(R.id.buy_B);
 			holder.buyA = (TextView) convertView.findViewById(R.id.buy_A);
 			holder.initPrice = (TextView) convertView.findViewById(R.id.initial_price);
@@ -73,7 +74,6 @@ public class GridAdapter extends BaseAdapter {
 	}
 
 	public class ViewHolder {
-		ImageView icon;
 		TextView buyB, buyA, initPrice, sellA, sellB;
 	}
 }

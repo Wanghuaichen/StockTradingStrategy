@@ -4,7 +4,9 @@ import android.app.Application;
 import android.content.Context;
 
 /**
- * Created by hewei on 2016-06-21  .*/
+ * Created by hewei on 2016-06-21
+ * 用于获取全局Content
+ * .*/
 public class StockStrategyApplication extends Application {
     public static Context sContext;
 
