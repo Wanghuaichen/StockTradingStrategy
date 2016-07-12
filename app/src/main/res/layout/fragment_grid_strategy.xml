@@ -11,8 +11,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/grid_strategy_name"
+        android:textColor="#333333"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:text="@string/grid_select"
         android:textColor="#333333"
         android:textSize="16sp"/>
@@ -44,39 +54,63 @@
         android:layout_height="2dp"
         android:background="#d0d0d0" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
+        android:layout_height="30dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
 
-        <TextView android:id="@+id/investment_amount_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/investment_amount"/>
+        <TextView android:id="@+id/investment_amount_tv"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentLeft="true"
+                  android:layout_centerInParent="true"
+                  android:layout_marginLeft="5dp"
+                  android:text="@string/investment_amount"
+                  android:textColor="#333333"
+                  android:textSize="@dimen/title_size"/>
         <EditText android:id="@+id/investment_amount"
-                  android:layout_width="0dp"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_weight="0.30"
-                  android:gravity="center"
-                  android:inputType="number"/>
-    </LinearLayout>
+                  android:layout_centerInParent="true"
+                  android:layout_marginLeft="5dp"
+                  android:layout_marginRight="5dp"
+                  android:layout_toRightOf="@id/investment_amount_tv"
+                  android:background="@null"
+                  android:textColor="#9f9f9f"
+                  android:textSize="@dimen/value_size"
+                  android:hint="请填写金额"
+                  android:inputType="numberDecimal" />
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
+        android:layout_height="30dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
 
-        <TextView
+        <TextView android:id="@+id/initial_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/initial_price"/>
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:text="@string/initial_price"
+            android:textColor="#333333"
+            android:textSize="@dimen/title_size"/>
         <EditText android:id="@+id/initial_price"
-                  android:layout_width="0dp"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_weight="0.30"
-                  android:gravity="center"
-                  android:inputType="number"/>
-    </LinearLayout>
+                  android:layout_centerInParent="true"
+                  android:layout_marginLeft="5dp"
+                  android:layout_marginRight="5dp"
+                  android:layout_toRightOf="@id/initial_price_tv"
+                  android:background="@null"
+                  android:textColor="#9f9f9f"
+                  android:textSize="@dimen/value_size"
+                  android:hint="请填写金额"
+                  android:inputType="numberDecimal" />
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

@@ -132,7 +132,7 @@ public class GridStrategyFragment extends Fragment {
                         initData();   //写数据到excel
                     }
                 } else {
-                    Toast.makeText(getActivity(), "内容填写不完整，请确认", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "内容填写不完整且不能为零或负值，请确认", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -153,7 +153,6 @@ public class GridStrategyFragment extends Fragment {
                 mGridTableList.setAdapter(new GridAdapter(getActivity(), gridList));
             }
         });
-
         return v;
     }
 
