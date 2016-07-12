@@ -13,6 +13,7 @@ public class GridDBHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_GRID = "create table Grid(" +
             "id integer primary key," +
+            "stock text," +
             "buyB real," +
             "buyA real," +
             "initPrice real," +

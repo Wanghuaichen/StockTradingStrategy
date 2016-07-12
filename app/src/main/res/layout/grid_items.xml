@@ -7,7 +7,7 @@
     android:orientation="horizontal" >
 
     <TextView
-        android:id="@+id/buy_B"
+        android:id="@+id/stock"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
@@ -19,7 +19,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/buy_A"
+        android:id="@+id/buyB"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
@@ -31,7 +31,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/initial_price"
+        android:id="@+id/buyA"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
@@ -43,7 +43,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/sell_A"
+        android:id="@+id/initPrice"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
@@ -55,7 +55,19 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/sell_B"
+        android:id="@+id/sellA"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:paddingRight="2dp"
+        android:singleLine="true"
+        android:textColor="#aa000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/sellB"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"

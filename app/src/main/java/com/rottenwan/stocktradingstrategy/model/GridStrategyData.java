@@ -10,6 +10,7 @@ public class GridStrategyData {
     private static GridStrategyData sGridStrategyData;
     private double mBuyGrid = 0;
     private double mSellGrid = 0;
+    private String mStockName = null;
     private double mInvestmentAmount = 0;
     private double mInitialPrice = 0;
 
@@ -50,6 +51,15 @@ public class GridStrategyData {
 
     public void setSellB(double sellB) {
         mSellB = sellB;
+    }
+
+
+    public String getStockName() {
+        return mStockName;
+    }
+
+    public void setStockName(String stockName) {
+        mStockName = stockName;
     }
 
     public double getInitialPrice() {

@@ -161,23 +161,26 @@ public class ExcelUtils {
             Double temp;
 			for (int i = 1; i < sheet.getRows(); i++) {
 				GridStrategyData gsd = new GridStrategyData();
-				cell = sheet.getCell(0, i);
-                temp = Double.parseDouble(cell.getContents());
-				gsd.setBuyB(temp);
+                cell = sheet.getCell(0, i);
+                gsd.setStockName(cell.getContents());
 
 				cell = sheet.getCell(1, i);
                 temp = Double.parseDouble(cell.getContents());
-                gsd.setBuyA(temp);
+				gsd.setBuyB(temp);
 
 				cell = sheet.getCell(2, i);
                 temp = Double.parseDouble(cell.getContents());
-                gsd.setInitialPrice(temp);
+                gsd.setBuyA(temp);
 
 				cell = sheet.getCell(3, i);
                 temp = Double.parseDouble(cell.getContents());
-                gsd.setSellA(temp);
+                gsd.setInitialPrice(temp);
 
 				cell = sheet.getCell(4, i);
+                temp = Double.parseDouble(cell.getContents());
+                gsd.setSellA(temp);
+
+				cell = sheet.getCell(5, i);
                 temp = Double.parseDouble(cell.getContents());
                 gsd.setSellB(temp);
 				LogUtil.d("第" + i + "行---------" + gsd.getBuyB() + ", " + gsd.getBuyA() + ", "

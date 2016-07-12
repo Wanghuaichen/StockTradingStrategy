@@ -32,6 +32,7 @@ import java.util.ArrayList;
  * Created by hewei on 2016-04-21  .*/
 public class GridStrategyFragment extends Fragment {
     private RadioGroup mRadioGroupGrid;
+    private EditText mStockName;
     private EditText mInvestmentAmount;
     private EditText mInitialPrice;
     private Button mExportGridTable;
@@ -40,7 +41,7 @@ public class GridStrategyFragment extends Fragment {
     private GridStrategyData mGridStrategyData;
     SQLiteDatabase db;
 
-    private String[] mTitle = {"买入B档", "买入A档", "底仓", "卖出A档", "卖出B档"};
+    private String[] mTitle = {"股票", "买入B档", "买入A档", "底仓", "卖出A档", "卖出B档"};
     private Double[] mSaveData;
     private ArrayList<ArrayList<String>> mGridList;
 
@@ -84,6 +85,18 @@ public class GridStrategyFragment extends Fragment {
             }
         });
 
+        mStockName = (EditText) v.findViewById(R.id.stock_name);
+        mStockName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mGridStrategyData.setStockName(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         mInvestmentAmount = (EditText) v.findViewById(R.id.investment_amount);
         mInvestmentAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -109,7 +122,15 @@ public class GridStrategyFragment extends Fragment {
         });
 
         /**
-         * 使用SQlite数据库存储相关数据，随后写入到excel表*/
+         * 在ListView组件的上面增加一个组件，用于显示表格标题 */
+
+        mGridTableList = (ListView) v.findViewById(R.id.grid_table_list);
+        View contentHeader = LayoutInflater.from(getActivity()).inflate(
+                R.layout.listview_header, new LinearLayout(getActivity()));
+        mGridTableList.addHeaderView(contentHeader);
+
+        /**
+         * 使用SQlite数据库存储相关数据，随后写入到excel表 */
         mExportGridTable = (Button) v.findViewById(R.id.export_grid_table);
         mExportGridTable.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +143,7 @@ public class GridStrategyFragment extends Fragment {
 
                 if (canSave(mSaveData)) {
                     ContentValues values = new ContentValues();
+                    values.put("stock", mGridStrategyData.getStockName());
                     values.put("buyB", mGridStrategyData.computeBuyB());
                     values.put("buyA", mGridStrategyData.computeBuyA());
                     values.put("initPrice", mGridStrategyData.getInitialPrice());
@@ -137,13 +159,8 @@ public class GridStrategyFragment extends Fragment {
             }
         });
 
-        mGridTableList = (ListView) v.findViewById(R.id.grid_table_list);
-        View contentHeader = LayoutInflater.from(getActivity()).inflate(
-                R.layout.listview_header, new LinearLayout(getActivity()));
-        mGridTableList.addHeaderView(contentHeader);
-
         /**
-         * 从excel中获取数据，用定制ListView显示出来*/
+         * 从excel中获取数据，用定制ListView显示出来 */
         mImportGridTable = (Button) v.findViewById(R.id.import_grid_table);
         mImportGridTable.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,7 +193,7 @@ public class GridStrategyFragment extends Fragment {
             beanList.add(mCrusor.getString(3));
             beanList.add(mCrusor.getString(4));
             beanList.add(mCrusor.getString(5));
-
+            beanList.add(mCrusor.getString(6));
             mGridList.add(beanList);
         }
         mCrusor.close();
@@ -203,7 +220,6 @@ public class GridStrategyFragment extends Fragment {
             dir = sdDir.toString();
         }
         return dir;
-
     }
 
     /**

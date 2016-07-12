@@ -17,8 +17,9 @@
     <string name="small_grid" formatted="false">小网格【-5%买，10%卖】</string>
     <string name="middle_grid" formatted="false">中网格【-8%买，15%卖】</string>
     <string name="big_grid" formatted="false">大网格【-12%买，20%卖】</string>
-    <string name="investment_amount">计划投入金额（万元）</string>
-    <string name="initial_price">设置底仓价格（元）</string>
+    <string name="stock_name">填写计划买入的股票：</string>
+    <string name="investment_amount">填写投入金额（万元）：</string>
+    <string name="initial_price">填写底仓价格（元）：</string>
     <string name="export_grid_table">导出网格交易计划表</string>
     <string name="import_grid_table">导入网格交易计划表</string>
 

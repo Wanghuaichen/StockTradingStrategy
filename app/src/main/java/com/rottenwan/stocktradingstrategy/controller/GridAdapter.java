@@ -54,17 +54,19 @@ public class GridAdapter extends BaseAdapter {
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = inflater.inflate(R.layout.grid_items, new LinearLayout(StockStrategyApplication.getContext()));
-			holder.buyB = (TextView) convertView.findViewById(R.id.buy_B);
-			holder.buyA = (TextView) convertView.findViewById(R.id.buy_A);
-			holder.initPrice = (TextView) convertView.findViewById(R.id.initial_price);
-			holder.sellA = (TextView) convertView.findViewById(R.id.sell_A);
-			holder.sellB = (TextView) convertView.findViewById(R.id.sell_B);
+            holder.stock = (TextView) convertView.findViewById(R.id.stock);
+			holder.buyB = (TextView) convertView.findViewById(R.id.buyB);
+			holder.buyA = (TextView) convertView.findViewById(R.id.buyA);
+			holder.initPrice = (TextView) convertView.findViewById(R.id.initPrice);
+			holder.sellA = (TextView) convertView.findViewById(R.id.sellA);
+			holder.sellB = (TextView) convertView.findViewById(R.id.sellB);
 			
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		GridStrategyData mGridStrategyData = list.get(position);
+        holder.stock.setText(mGridStrategyData.getStockName());
 		holder.buyB.setText(String.valueOf(mGridStrategyData.getBuyB()));
 		holder.buyA.setText(String.valueOf(mGridStrategyData.getBuyA()));
 		holder.initPrice.setText(String.valueOf(mGridStrategyData.getInitialPrice()));
@@ -74,6 +76,6 @@ public class GridAdapter extends BaseAdapter {
 	}
 
 	public class ViewHolder {
-		TextView buyB, buyA, initPrice, sellA, sellB;
+		TextView stock, buyB, buyA, initPrice, sellA, sellB;
 	}
 }
